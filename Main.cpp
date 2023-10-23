@@ -52,10 +52,6 @@ int main(int, char **)
         return -1;
     }
 
-    // SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    // SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    // SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     SDL_Window *window = SDL_CreateWindow("Viewport", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 950, 550, window_flags);
     bool windowIsOpen = true;
@@ -88,8 +84,6 @@ int main(int, char **)
     object2.position = Vector2(250, 150);
     objects.push_back(object2);
 
-    // ConfigureImGuiStyle();
-
     bool movingCamera = false;
     Vector2 lastMousePosition;
 
@@ -107,8 +101,6 @@ int main(int, char **)
                 windowIsOpen = false;
 
                 break;
-            case SDL_MOUSEWHEEL:
-
             case SDL_MOUSEBUTTONDOWN:
                 lastMousePosition = GetMousePosition();
 
@@ -139,15 +131,15 @@ int main(int, char **)
 
         for (Object obj : objects)
         {
-            ImVec2 startPos = ImVec2(obj.position.x - camera.position.x, obj.position.y - camera.position.y);
-            ImVec2 endPos = startPos;
-            endPos.x += obj.size.x;
-            endPos.y += obj.size.y;
+            ImVec2 startPosition = ImVec2(obj.position.x - camera.position.x, obj.position.y - camera.position.y);
+            ImVec2 endPosition = startPosition;
+            endPosition.x += obj.size.x;
+            endPosition.y += obj.size.y;
 
             ImDrawList *drawList = ImGui::GetBackgroundDrawList();
             ImU32 fillColor = IM_COL32(255, 255, 255, 255);
 
-            drawList->AddRectFilled(ImVec2(startPos.x, startPos.y), ImVec2(endPos.x, endPos.y), fillColor, 0);
+            drawList->AddRectFilled(ImVec2(startPosition.x, startPosition.y), ImVec2(endPosition.x, endPosition.y), fillColor, 0);
         }
 
         ImGui::Render();
