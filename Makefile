@@ -17,4 +17,9 @@ $(TARGET): $(SRCS)
 clean:
 	rm -f $(TARGET)
 
+git: 
+	git add .
+	git commit -m "commit"
+	git push -u origin main
+
 .PHONY: clean run
