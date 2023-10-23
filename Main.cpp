@@ -44,13 +44,7 @@ Vector2 GetMousePosition()
 
 int main(int, char **)
 {
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
-    {
-        std::cout << "Error: %s\n"
-                  << SDL_GetError();
-
-        return -1;
-    }
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
 
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     SDL_Window *window = SDL_CreateWindow("Viewport", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 950, 550, window_flags);
@@ -82,6 +76,7 @@ int main(int, char **)
 
     Object object2;
     object2.position = Vector2(250, 150);
+
     objects.push_back(object2);
 
     bool movingCamera = false;
@@ -106,11 +101,13 @@ int main(int, char **)
 
                 if (event.button.button == SDL_BUTTON_RIGHT)
                     movingCamera = true;
+
                 break;
 
             case SDL_MOUSEBUTTONUP:
                 if (event.button.button == SDL_BUTTON_RIGHT)
                     movingCamera = false;
+
                 break;
             }
         }
